@@ -82,13 +82,18 @@
             <input id="degree-1" name="degree" required type="radio" value="Unimportant">
             <label for="degree-1">Unimportant</label>
         </p>
+        <p>
+            <label for="deadline">Choose a deadline for your task:</label>
+            <input type="datetime-local" id="deadline" name="deadline" value="{{ time_now }}" min="{{ time_now }}" max="">
+        </p>
         <button type="submit" class="submit">Submit</button>
     </form>
     <hr>
     {% for todo in todos %}
-        <div class="todo">
+        <div div class="todo">
             <h3><li>{{ todo['content'] }} ({{ todo['degree']}})</li></h3>
-
+            <h6> Created on: {{ todo['created_on'] }}</h6>
+            <h6> Finish before: {{ todo['deadline'] }}</h6>
             <form method="POST" action="{{ url_for('update', id=todo['_id']) }}">
                 <p><b>Update</b></p>
                 <div style="display: inline-flex">
@@ -107,9 +112,13 @@
                         <input id="updated_degree-0" name="updated_degree" required type="radio" value="Important">
                         <label for="updated_degree-0">Important</label>
                     </p>
-                    <p>
+                    <p style="margin-right: 1em">
                         <input id="updated_degree-1" name="updated_degree" required type="radio" value="Unimportant">
                         <label for="updated_degree-1">Unimportant</label>
+                    </p>
+                    <p style="margin-right: 1em">
+                        <label for="deadline">Choose a new deadline for your task:</label>
+                        <input type="datetime-local" id="deadline" name="deadline" value="{{ todo['deadline'] }}" min="{{ time_now }}" max="">
                     </p>
                 </div>
                 <div>
